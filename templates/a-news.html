@@ -1,0 +1,46 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+<!-- Название у нас будет proudcts -->
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, айди которого было передано в адрес -->
+{% block content %}
+ {% if anews %}
+ <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+
+                <td>
+                    Статья
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    {{ anews.header|censor }}
+                </td>
+                <td>
+                    {{ anews.date_time|date:'d-m-Y H:i' }}
+                </td>
+
+                <td>
+                    {{ anews.text|censor }}
+                </td>
+
+            </tr>
+
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+{% endblock content %}

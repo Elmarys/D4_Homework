@@ -1,0 +1,48 @@
+<!--  наследуемся от шаблона default.html, который мы создавали ещё во времена flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+<!-- Название у нас будет proudcts -->
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, айди которого было передано в адрес -->
+{% block content %}
+<h2>Вы действительно хотите удалить данную новость?</h2>
+ <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+
+                <td>
+                    Статья
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    {{ anews.header|censor }}
+                </td>
+                <td>
+                    {{ anews.date_time|date:'d-m-Y H:i' }}
+                </td>
+
+                <td>
+                    {{ anews.text|censor }}
+                </td>
+
+            </tr>
+
+        </table>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Подтвердить">
+</form>
+{% endblock content %}
